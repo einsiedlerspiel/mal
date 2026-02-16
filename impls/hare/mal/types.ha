@@ -22,12 +22,12 @@ export type string = *struct {
 };
 
 export type intrinsic = *struct {
-	eval: *fn([]MalType) (MalType | error),
+	eval: *fn(_: []MalType) (MalType | error),
 	meta: MalType,
 };
 
 export type function = *struct {
-	eval: *fn(MalType, *env) (MalType | error),
+	eval: *fn(_: MalType, _: *env) (MalType | error),
 	envi: *env,
 	args: []MalType,
 	body: MalType,
@@ -45,11 +45,11 @@ export type MalType = (macro | function | intrinsic | atom | bool |
 // Envs & Hashmaps are treated separately in their implementation files.
 
 export fn make_intrinsic(
-	func: *fn([]MalType) (MalType | error),
+	func: *fn(_: []MalType) (MalType | error),
 ) intrinsic = {
 
 	const new = alloc(struct {
-		eval: *fn([]MalType) (MalType | error) = func,
+		eval: *fn(_: []MalType) (MalType | error) = func,
 		meta: MalType = nil,
 	})!;
 
@@ -58,7 +58,7 @@ export fn make_intrinsic(
 };
 
 export fn make_func(
-	eval: *fn(MalType, *env) (MalType | error),
+	eval: *fn(_: MalType, _: *env) (MalType | error),
 	envi: *env,
 	args: []MalType,
 	body: MalType,
@@ -71,7 +71,7 @@ export fn make_func(
 	};
 
 	const new = alloc(struct{
-		eval: *fn(MalType, *env) (MalType | error)  = eval,
+		eval: *fn(_: MalType, _: *env) (MalType | error)  = eval,
 		envi: *env= envi,
 		args: []MalType = arg_list,
 		body: MalType = body,

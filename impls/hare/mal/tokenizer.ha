@@ -4,8 +4,6 @@ use strings;
 use strconv;
 use ascii;
 
-type undefined = !void;
-
 type comment = str;
 
 type list_beg = void;
@@ -29,7 +27,7 @@ type quote_tk = ( unquote_splice | unquote | quote | quasiquote | at);
 
 type word = str;
 
-type token = (int | str | io::EOF | undefined | ...coll_beg | mal_meta |
+type token = (int | str | io::EOF | ...coll_beg | mal_meta |
 	...quote_tk | vec_beg | ...coll_end | comment | word);
 
 type tokenizer = struct {

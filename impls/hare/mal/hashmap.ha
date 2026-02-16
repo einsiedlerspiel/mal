@@ -254,7 +254,7 @@ fn hm_key_list(hm: hashmap) list = {
 
 export fn eval_hash(
 	hm: hashmap,
-	eval: *fn(MalType, *env) (MalType | error),
+	eval: *fn(_: MalType, _: *env) (MalType | error),
 	env: *env,
 ) (hashmap | error) = {
 

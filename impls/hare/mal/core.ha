@@ -6,7 +6,7 @@ use strings;
 use bufio;
 use time;
 
-export type ns_entry = (str, (MalType | *fn([]MalType) (MalType | error)));
+export type ns_entry = (str, (MalType | *fn(_: []MalType) (MalType | error)));
 export type namespace = []ns_entry;
 
 export fn load_namespace(ns: namespace, env: *env) (void | error) = {
@@ -14,7 +14,7 @@ export fn load_namespace(ns: namespace, env: *env) (void | error) = {
 		let v: MalType = match(e.1){
 		case let v: MalType =>
 			yield v;
-		case let f: *fn([]MalType) (MalType | error) =>
+		case let f: *fn(_: []MalType) (MalType | error) =>
 			yield make_intrinsic(f);
 		case =>
 			return ("MalType", nil): type_error;
